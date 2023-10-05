@@ -5,7 +5,11 @@ import bodyParser from 'body-parser';
 import userRoutes from './routes/userRoutes';
 import bookRoutes from './routes/bookRoutes';
 import applicationRoutes from './routes/applicationRoutes';
+import errorMiddleware from './middleware/errorMiddleware';
 
+
+const app = express();
+const PORT = 3000;
 
 mongoose
   .connect(config.mongoURI, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -20,8 +24,7 @@ mongoose
     console.error('Failed to connect to MongoDB:', error);
   });
 
-const app = express();
-const PORT = 3000;
+
 
 // Middleware
 app.use(bodyParser.json());
@@ -32,12 +35,4 @@ app.use('/api/v1/books', bookRoutes);
 app.use('/api/v1/applications', applicationRoutes);
 
 // Error handling middleware
-// app.use(errorMiddleware);
-
-// Start the server
-/*
-
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
-*/
+ app.use(errorMiddleware);
