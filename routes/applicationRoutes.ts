@@ -1,4 +1,5 @@
 import express from 'express';
+
 import { createApplication, getAllApplications } from '../controllers/application';
 
 const router = express.Router();
